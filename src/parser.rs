@@ -117,7 +117,7 @@ impl<'a> Iterator for Lexer<'a> {
 
 /// Represents a litteral that an expression evaluates to
 #[derive(Debug, PartialEq)]
-enum Litt {
+pub enum Litt {
     /// An integer
     I64(i64),
     /// A string
@@ -128,7 +128,7 @@ enum Litt {
 
 /// Represents some kind of expression that can be evaluated to a litteral
 #[derive(Debug, PartialEq)]
-enum Expr {
+pub enum Expr {
     /// A list containing multiple expressions, e.g. `(f 1 2 (+ 3 4))`
     List(Vec<Expr>),
     /// A reference to same name, e.g. `f`
@@ -143,7 +143,7 @@ enum Expr {
 
 /// An error that can happen while parsing
 #[derive(Debug, PartialEq)]
-struct ParseError {
+pub struct ParseError {
     message: String,
 }
 
@@ -152,7 +152,7 @@ fn parse_fail<T, S: Into<String>>(s: S) -> ParseResult<T> {
 }
 
 /// The result of trying to parse out a program
-type ParseResult<T> = Result<T, ParseError>;
+pub type ParseResult<T> = Result<T, ParseError>;
 
 struct Parser {
     tokens: Vec<Token>,
@@ -238,7 +238,7 @@ impl Parser {
 }
 
 /// Parse a source into the result
-fn parse(source: &str) -> ParseResult<Expr> {
+pub fn parse(source: &str) -> ParseResult<Expr> {
     let tokens: Vec<Token> = Lexer::new(source).collect();
     Parser::new(tokens).expr()
 }
